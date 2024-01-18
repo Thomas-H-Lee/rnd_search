@@ -1,25 +1,30 @@
 ################################################## 
-#   PJT : R&D 기술정보검색모델 구축          #
+#   PJT : Similarity-based Search and recommendation          #
 #   Desc. :             #
-#   Date : 2022-05-03                            #
-#   Writer : Hodong Lee                          #
+#   Date : 2024-01-02                            #
+#   Writer : Tom Lee                          #
 #   Version : V0.1                               #
 ##################################################
 from PIL import Image
 import streamlit as st
 import streamlit.components.v1 as stc
-from elastic_enterprise_search import AppSearch
 import base64
 import streamlit.components.v1 as components
+from elasticsearch import Elasticsearch
 
-logo = Image.open(r'D:\plant_arch_service\Workspace/pjt_search/poscoenc_ci.png')
+logo = Image.open(r'C:\Git\GitHub\rnd_search\mathworks_ci.png')
 
-# Appsearch 셋업 : 104번 서버 (App Search APIs - python용 Guide 준용)
-app_search = AppSearch(
-    "203.245.157.104:3002/api/as/v1",
-    http_auth="private-fcgi6zgirnwru77pun4g9bu1",
-    use_https=False
-)
+# Elasticsearch 셋업 : Consulting 서버 (App Search APIs - python용 Guide 준용)
+_ES_URL = "http://203.245.157.103:9200"  # Linux Server 
+_ES_INDEX = "pjt01_test_analyzer"
+_DOC_TYPE = _ES_INDEX
+es_client = Elasticsearch([_ES_URL])
+
+## ## DEFINE CUSTOM ANALYZER & USER MAPPING
+#PUT eng_custom_analyzer
+# load preset json mapping file(_ES_setting.json)
+
+
 engine_name = "poc-research-doc"
 
 def create_download_link(val, filename):
